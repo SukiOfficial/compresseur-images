@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compresser une image en ligne gratuitement — sans upload, sans limite</title>
+<meta name="description" content="Compresse tes images JPG, PNG et WebP directement dans ton navigateur. Gratuit, illimité, aucune donnée envoyée sur un serveur.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4308330413530569" crossorigin="anonymous"></script>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --paper: #f7f5f0;
+    --panel: #ffffff;
+    --line: #1a1a1a;
+    --accent: #2f5233;
+    --accent-soft: #e8ede9;
+    --mono: 'IBM Plex Mono', 'Courier New', monospace;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,600&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--mono);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  header {
+    border-bottom: 2px solid var(--line);
+    padding: 28px 0 20px;
+  }
+
+  .brand-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+
+  .kicker {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 6vw, 52px);
+    font-weight: 600;
+    line-height: 1.05;
+    margin: 14px 0 10px;
+    max-width: 14ch;
+  }
+
+  .lede {
+    font-size: 15px;
+    max-width: 52ch;
+    color: #4a4a4a;
+  }
+
+  main { padding: 40px 0 60px; }
+
+  .drop-zone {
+    border: 2px dashed var(--line);
+    background: var(--panel);
+    padding: 48px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    position: relative;
+  }
+
+  .drop-zone.drag-over {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    border-style: solid;
+  }
+
+  .drop-zone .instr {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+
+  .drop-zone .sub {
+    font-size: 13px;
+    color: #777;
+  }
+
+  .drop-zone input { display: none; }
+
+  #fileList { margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
+
+  .file-card {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 18px;
+    display: grid;
+    grid-template-columns: 72px 1fr auto;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .thumb {
+    width: 72px; height: 72px;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    background: #eee;
+  }
+
+  .file-meta { font-size: 13px; }
+  .file-name { font-weight: 600; margin-bottom: 4px; word-break: break-all; }
+  .size-line { color: #777; }
+  .size-line .after { color: var(--accent); font-weight: 600; }
+
+  .arrow { color: var(--accent); margin: 0 6px; }
+
+  .dl-btn {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .dl-btn:disabled { background: #ccc; cursor: not-allowed; }
+  .dl-btn:hover:not(:disabled) { background: var(--accent); }
+
+  .controls {
+    margin-top: 28px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .controls label { font-size: 13px; font-weight: 600; }
+  input[type="range"] { flex: 1; min-width: 160px; accent-color: var(--accent); }
+  #qualityValue { font-weight: 600; color: var(--accent); min-width: 3ch; }
+
+  .ad-slot {
+    margin: 40px 0;
+    border: 1px dashed #ccc;
+    background: #fafafa;
+    padding: 16px;
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  section.info { padding: 40px 0; border-top: 1px solid #ddd; }
+  section.info h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .steps { display: grid; gap: 20px; grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 700px) { .steps { grid-template-columns: 1fr; } .file-card { grid-template-columns: 56px 1fr; } .dl-btn { grid-column: 1 / -1; } }
+
+  .step .num {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .step p { font-size: 13px; color: #555; }
+
+  .faq-item { margin-bottom: 20px; max-width: 60ch; }
+  .faq-item .q { font-weight: 600; margin-bottom: 6px; }
+  .faq-item .a { font-size: 13px; color: #555; }
+
+  footer {
+    border-top: 2px solid var(--line);
+    padding: 24px 0;
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand-row">
+      <span class="kicker">Atelier d'images / outil no.01</span>
+      <span>100% navigateur — rien n'est envoyé</span>
+    </div>
+    <h1>Compresser une image, sans en perdre l'âme.</h1>
+    <p class="lede">Dépose un JPG, un PNG ou un WebP. Il ressort plus léger, à l'œil près identique. Aucune limite, aucun compte, aucun fichier stocké nulle part.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="drop-zone" id="dropZone">
+    <div class="instr">Dépose tes images ici</div>
+    <div class="sub">ou touche pour choisir un fichier — JPG, PNG, WebP</div>
+    <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" multiple>
+  </div>
+
+  <div class="controls">
+    <label for="quality">Qualité</label>
+    <input type="range" id="quality" min="10" max="95" value="70">
+    <span id="qualityValue">70%</span>
+  </div>
+
+  <div id="fileList"></div>
+
+  <div class="ad-slot">Emplacement publicitaire</div>
+
+  <section class="info">
+    <h2>Comment ça marche</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="num">01</div>
+        <p>Tu déposes une ou plusieurs images. Rien ne quitte ton appareil — tout se passe dans ton navigateur.</p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <p>Le curseur de qualité ajuste le compromis entre poids du fichier et netteté visuelle.</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <p>Tu télécharges le résultat compressé, prêt à envoyer ou publier.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-slot">Emplacement publicitaire</div>
+
+  <section class="info">
+    <h2>Questions courantes</h2>
+    <div class="faq-item">
+      <div class="q">Mes images sont-elles envoyées sur un serveur ?</div>
+      <div class="a">Non. Tout le traitement a lieu directement dans ton navigateur, via JavaScript. Aucune image ne transite par un serveur externe.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">Y a-t-il une limite au nombre d'images ?</div>
+      <div class="a">Non, tu peux en compresser autant que tu veux, sans compte ni inscription.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">Quels formats sont pris en charge ?</div>
+      <div class="a">JPG, PNG et WebP en entrée. La sortie conserve le même format, à l'exception du PNG qui peut être converti en JPG pour un gain de poids plus important.</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Outil gratuit — traitement local, aucune donnée conservée.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
